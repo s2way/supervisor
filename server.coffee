@@ -1,13 +1,14 @@
 os = require 'os'
 Elasticsearch = require './ElasticSearch.coffee'
 esURL = require './es_url.coffee'
+moment = require 'moment'
 
 class SystemInfo
 
     es = new Elasticsearch
 
     name: 'SystemInfo'
-    interval: 10000
+    interval: 2000
 
     gather: ->
         data =
@@ -34,6 +35,7 @@ class SystemInfo
         data.memRssMb = parseFloat((nodeMemUsgMb.rss / 1024 / 1024).toFixed 2)
         data.heapFreeMb = parseFloat((data.heapTotMb - data.heapUsedMb).toFixed 2)
         data.heapFreePerc = parseFloat((data.heapFreeMb / data.heapTotMb * 100).toFixed 2)
+        data.created = moment().utc().format()
         data
 
     run: (emitter) ->
@@ -41,10 +43,12 @@ class SystemInfo
             index: 'microservices'
             type: 'server_metrics'
             data: @gather()
-        host = if (os.hostname()).indexOf 'vs' isnt -1 then '127.0.0.1' else esURL
-        post = if (os.hostname()).indexOf 'vs' isnt -1 then 9200 else 80
-        source = host: host, port: post
+        # host = if (os.hostname()).indexOf 'vs' isnt -1 then '127.0.0.1' else esURL
+        # post = if (os.hostname()).indexOf 'vs' isnt -1 then 9200 else 80
+        # source = host: host, port: post
+        source = host: esURL, port: 80
         es.save source, data, (e, s) ->
+            #  console.log e, s
             emitter.emit 'error' if e
             emitter.emit 'success'
 
