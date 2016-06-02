@@ -1,0 +1,1 @@
+module.exports = 'http://search-s2way-es-uifmcnfqttildjlpuspzmucyzy.sa-east-1.es.amazonaws.com/'
