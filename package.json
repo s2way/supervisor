@@ -2,9 +2,9 @@
   "name": "supervisor",
   "version": "1.0.0",
   "description": "",
-  "main": "server.coffee",
+  "main": "supervisor.coffee",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node_modules/.bin/coffee supervisor.coffee"
   },
   "author": "",
   "license": "ISC",
@@ -12,7 +12,9 @@
     "coffee-script": "latest",
     "elastic.js": "^1.2.0",
     "elasticsearch": "^11.0.1",
+    "lodash": "^4.13.1",
     "moment": "^2.13.0",
+    "nsutil": "^0.1.4",
     "underscore": "~1.8.3",
     "waferpie-utils": "git://github.com/s2way/waferpie-utils.git"
   }

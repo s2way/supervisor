@@ -1,2 +1,3 @@
-es_url.coffee
+node_modules/
+config.coffee
 npm-debug.log

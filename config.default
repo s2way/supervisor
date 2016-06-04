@@ -1,0 +1,6 @@
+module.exports =
+    url: 'http://localhost' # note: without trailing /
+    port: 9200
+    index: 'microservices'
+    type: 'server_metrics'
+    app: 'DataHub'
